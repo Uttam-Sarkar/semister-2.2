@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int N = 100000+5;
+
+class biSection{
+private:
+	double epsilon = 0.0001;
+	double upper, lower;
+
+	double functon(double x){
+		return 3*x*x*x + x*x -1;
+	}
+public:
+	double root=0;
+
+	void solve() {
+// upper bound
+		for(int i=0; ; i++){
+			if(functon(i)>0){
+				upper=i;	break;
+			}
+			if(functon(-i)>0){
+				upper=-i;	break;
+			}
+		}
+//lower bound
+		for(int i=0; ; i++){
+			if(functon(i)<0){
+				lower=i;	break;
+			}
+			if(functon(-i)<0){
+				lower=-i;	break;
+			}
+		}
+
+		double root = 0;
+		while(1){
+            cout << "Upper : " << upper << ", Lower : " << lower << ", Root : " << root << endl;
+			root = (upper+lower)/2;
+
+			if(functon(root)==0.0 || abs(upper-lower) < epsilon){
+				break;
+			}
+			else{
+				if(functon(root)*functon(lower) <= 0){
+					upper=root;
+				}
+				else
+					lower=root;
+			}
+		}
+		cout << "The root is " << root << endl;
+	}
+};
+int main()
+{
+	biSection x = biSection();
+	x.solve();
+	
+}
